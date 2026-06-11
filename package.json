@@ -1,0 +1,16 @@
+{
+  "name": "personal-portfolio-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "db:start": "bash start-db.sh",
+    "backend": "npm --prefix backend run dev",
+    "frontend": "npm --prefix frontend run dev",
+    "dev": "concurrently \"npm run db:start\" \"npm run backend\" \"npm run frontend\"",
+    "seed": "node backend/seed.js",
+    "build": "npm --prefix frontend run build"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
