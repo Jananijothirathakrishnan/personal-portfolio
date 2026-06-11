@@ -11,7 +11,8 @@ import Achievements from './components/Achievements';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 
-// Particle background component
+
+
 const ParticlesBackground = () => {
   const canvasRef = useRef(null);
 
@@ -126,6 +127,8 @@ function App() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
+        const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '/api' : '/_/backend/api';
+
         const fetchJSON = async (url) => {
           const res = await fetch(url);
           if (!res.ok) throw new Error(`HTTP error ${res.status}`);
@@ -134,12 +137,12 @@ function App() {
 
         // Fire all queries in parallel
         const [projectsData, skillsData, expData, certsData, achsData, ghData] = await Promise.allSettled([
-          fetchJSON('/api/projects'),
-          fetchJSON('/api/skills'),
-          fetchJSON('/api/experience'),
-          fetchJSON('/api/certifications'),
-          fetchJSON('/api/achievements'),
-          fetchJSON('/api/github'),
+          fetchJSON(`${API_BASE}/projects`),
+          fetchJSON(`${API_BASE}/skills`),
+          fetchJSON(`${API_BASE}/experience`),
+          fetchJSON(`${API_BASE}/certifications`),
+          fetchJSON(`${API_BASE}/achievements`),
+          fetchJSON(`${API_BASE}/github`),
         ]);
 
         if (projectsData.status === 'fulfilled') setProjects(projectsData.value);
